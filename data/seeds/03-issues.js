@@ -1,13 +1,31 @@
-
-exports.seed = function(knex) {
+exports.seed = function (knex) {
   // Deletes ALL existing entries
-  return knex('table_name').del()
+  return knex("table_name")
+    .truncate()
     .then(function () {
       // Inserts seed entries
-      return knex('table_name').insert([
-        {id: 1, colName: 'rowValue1'},
-        {id: 2, colName: 'rowValue2'},
-        {id: 3, colName: 'rowValue3'}
+      return knex("table_name").insert([
+        {
+          id: 1,
+          title: "pothole on 5th St",
+          description:
+            "Theirs a really bad pothole on 5th street that needs fix because it is a liability to drivers on the road!!",
+          user_id: 1,
+        },
+        {
+          id: 2,
+          title: "neighbor not mowing his grass",
+          description:
+            "Hello, my nex door neighbor hasn't mowed his lawn is 5 weeks and it makes my house lose curb appeal",
+          user_id: 1,
+        },
+        {
+          id: 3,
+          title: "dogs wont stop barking",
+          description:
+            "I cant sleep at night, please get my neighbors dogs to stop barking!!!!!!!!",
+          user_id: 2,
+        },
       ]);
     });
 };
