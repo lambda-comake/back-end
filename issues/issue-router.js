@@ -64,7 +64,7 @@ router.put("/:id", validatePost, (req, res) => {
 router.delete("/:id", (req, res) => {
   Issues.removeIssue(req.params.id).then((issue) => {
     if (issue) {
-      res.status(200).json(issue);
+      res.status(200).json({ deleted: issue });
     } else {
       res
         .status(404)
