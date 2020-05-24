@@ -1,10 +1,8 @@
 exports.seed = function (knex) {
-  // Deletes ALL existing entries
-  return knex("table_name")
+  return knex("issues")
     .truncate()
     .then(function () {
-      // Inserts seed entries
-      return knex("table_name").insert([
+      return knex("issues").insert([
         {
           id: 1,
           title: "pothole on 5th St",
@@ -17,6 +15,7 @@ exports.seed = function (knex) {
           title: "neighbor not mowing his grass",
           description:
             "Hello, my nex door neighbor hasn't mowed his lawn is 5 weeks and it makes my house lose curb appeal",
+          upvotes: 5,
           user_id: 1,
         },
         {
