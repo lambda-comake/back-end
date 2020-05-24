@@ -5,6 +5,7 @@ module.exports = {
   getIssuesById,
   postIssue,
   editIssue,
+  removeIssue,
 };
 
 function getAllIssues() {
@@ -30,4 +31,15 @@ function editIssue(changes, id) {
     .then(() => {
       return getIssuesById(id);
     });
+}
+
+function removeIssue(id) {
+  return getIssuesById(id).then((del) => {
+    return db("issues")
+      .where({ id })
+      .del()
+      .then(() => {
+        return del;
+      });
+  });
 }

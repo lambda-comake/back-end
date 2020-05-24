@@ -42,14 +42,35 @@ router.get("/:id", (req, res) => {
 });
 
 // EDIT a specific issue
-router.put("/:id", (req, res) => {
-  Issues.editIssue(req.body, req.params.id)
-    .then((update) => {
-      res.status(200).json(update);
-    })
-    .catch((err) => {
-      res.status(500).json({ error: "error update issue", err });
-    });
+router.put("/:id", validatePost, (req, res) => {
+  Issues.getIssuesById(req.params.id).then((issues) => {
+    if (issues) {
+      Issues.editIssue(req.body, req.params.id)
+        .then((update) => {
+          res.status(200).json(update);
+        })
+        .catch((err) => {
+          res.status(500).json({ error: "error updating that issue", err });
+        });
+    } else {
+      res
+        .status(404)
+        .json({ message: "Couldn't find any issues with that ID" });
+    }
+  });
+});
+
+// DELETE a specific issue
+router.delete("/:id", (req, res) => {
+  Issues.removeIssue(req.params.id).then((issue) => {
+    if (issue) {
+      res.status(200).json(issue);
+    } else {
+      res
+        .status(404)
+        .json({ message: "Couldn't find any issues with that ID" });
+    }
+  });
 });
 
 module.exports = router;
