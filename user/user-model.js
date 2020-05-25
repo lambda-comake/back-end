@@ -6,6 +6,8 @@ module.exports = {
   add,
   findById,
   findUserProfile,
+  postUserProfile,
+  getProfiles,
 };
 
 function find() {
@@ -38,4 +40,14 @@ function findUserProfile(id) {
     )
     .join("profiles", "users.id", "=", "profiles.user_id")
     .where("user_id", id);
+}
+
+async function postUserProfile(profile) {
+  const [id] = await db("profiles").insert(profile, "id");
+
+  return findById(id);
+}
+
+function getProfiles() {
+  return db("profiles");
 }

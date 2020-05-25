@@ -16,12 +16,11 @@ router.get("/", (req, res) => {
 
 router.get("/:id", (req, res) => {
   Users.findUserProfile(req.params.id).then((user) => {
-    if (user) {
+    console.log(user);
+    if (user.length != 0) {
       res.status(200).json(user);
     } else {
-      res
-        .status(404)
-        .json({ message: "Couldn't find any issues with that ID" });
+      res.status(404).json({ message: "No profile created for that User yet" });
     }
   });
 });

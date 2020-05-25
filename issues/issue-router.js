@@ -24,7 +24,7 @@ router.post("/", validatePost, (req, res) => {
       res.status(201).json(issue);
     })
     .catch((err) => {
-      res.status(500).json({ error: "error post that issue", err });
+      res.status(500).json({ error: "error posting that issue", err });
     });
 });
 
@@ -62,15 +62,19 @@ router.put("/:id", validatePost, (req, res) => {
 
 // DELETE a specific issue
 router.delete("/:id", (req, res) => {
-  Issues.removeIssue(req.params.id).then((issue) => {
-    if (issue) {
-      res.status(200).json({ deleted: issue });
-    } else {
-      res
-        .status(404)
-        .json({ message: "Couldn't find any issues with that ID" });
-    }
-  });
+  Issues.removeIssue(req.params.id)
+    .then((issue) => {
+      if (issue) {
+        res.status(200).json({ deleted: issue });
+      } else {
+        res
+          .status(404)
+          .json({ message: "Couldn't find any issues with that ID" });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({ error: "error delete that issue", err });
+    });
 });
 
 module.exports = router;
