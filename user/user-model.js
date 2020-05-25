@@ -5,6 +5,7 @@ module.exports = {
   findBy,
   add,
   findById,
+  findUserProfile,
 };
 
 function find() {
@@ -22,5 +23,19 @@ async function add(user) {
 }
 
 function findById(id) {
-  return db("users").where({ id: id }).first();
+  return db("users").select("id", "username").where({ id: id }).first();
+}
+
+function findUserProfile(id) {
+  return db("users")
+    .select(
+      "users.id",
+      "users.username",
+      "profiles.email",
+      "profiles.firstName",
+      "profiles.lastName",
+      " profiles.age"
+    )
+    .join("profiles", "users.id", "=", "profiles.user_id")
+    .where("user_id", id);
 }

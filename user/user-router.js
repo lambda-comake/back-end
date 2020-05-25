@@ -15,7 +15,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/:id", (req, res) => {
-  Users.findById(req.params.id).then((user) => {
+  Users.findUserProfile(req.params.id).then((user) => {
     if (user) {
       res.status(200).json(user);
     } else {
