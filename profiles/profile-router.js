@@ -26,4 +26,19 @@ router.post("/", validateProfile, (req, res) => {
     });
 });
 
+router.delete("/:id", (req, res) => {
+  Users.removeProfile(req.params.id)
+    .then((user) => {
+      console.log(user);
+      if (user.length != 0) {
+        res.status(200).json({ deleted: user });
+      } else {
+        res.status(400).json({ message: "No profiles with that Id" });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({ message: "issue deleting this profile", err });
+    });
+});
+
 module.exports = router;

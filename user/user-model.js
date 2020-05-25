@@ -8,6 +8,7 @@ module.exports = {
   findUserProfile,
   postUserProfile,
   getProfiles,
+  removeProfile,
 };
 
 function find() {
@@ -50,4 +51,15 @@ async function postUserProfile(profile) {
 
 function getProfiles() {
   return db("profiles");
+}
+
+function removeProfile(id) {
+  return findUserProfile(id).then((del) => {
+    return db("profiles")
+      .where({ id })
+      .del()
+      .then(() => {
+        return del;
+      });
+  });
 }
