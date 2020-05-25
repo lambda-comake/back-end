@@ -17,7 +17,7 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", validateProfile, (req, res) => {
-  Users.postUserProfile(req.body)
+  Users.postProfile(req.body)
     .then((profile) => {
       res.status(201).json(profile);
     })
@@ -29,7 +29,6 @@ router.post("/", validateProfile, (req, res) => {
 router.delete("/:id", (req, res) => {
   Users.removeProfile(req.params.id)
     .then((user) => {
-      console.log(user);
       if (user.length != 0) {
         res.status(200).json({ deleted: user });
       } else {
