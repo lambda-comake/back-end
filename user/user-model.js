@@ -9,6 +9,7 @@ module.exports = {
   postProfile,
   getProfiles,
   removeProfile,
+  findProfileBy,
 };
 
 function find() {
@@ -69,4 +70,8 @@ function postProfile(profile) {
       console.log(ids);
       return getProfileById(ids[0]);
     });
+}
+
+function findProfileBy(filter) {
+  return db("profiles").where(filter);
 }
