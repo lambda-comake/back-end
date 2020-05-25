@@ -12,7 +12,7 @@ exports.seed = function (knex) {
       title: "neighbor not mowing his grass",
       description:
         "Hello, my nex door neighbor hasn't mowed his lawn is 5 weeks and it makes my house lose curb appeal",
-      upvotes: 5,
+      upVotes: 5,
       user_id: 1,
     },
     {
