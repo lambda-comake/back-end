@@ -49,3 +49,15 @@
 | POST   | /api/profiles     | takes a email, first name, last name, age, and address (optional) | VALID 201 OK |
 | PUT    | /api/profiles     | takes a email, first name, last name, age, and address (optional) | VALID 201 OK |
 | DELETE | /api/profiles/:id | Deletes a specific profile                                        | VALID 200 OK |
+
+---
+
+### Profile Data
+
+| Porperty   | Type                         | Example           | Requirements      |
+| :--------- | :--------------------------- | :---------------- | :---------------- |
+| email      | string / max 255 characters  | "email@email.com" | required & unique |
+| first name | string / max 255 characters  | "Bob"             | required          |
+| last name  | string / max 255 characters  | "Doe"             | required          |
+| age        | integer / max 128 characters | 25                | required          |
+| address    | string / max 255 characters  | "123 abc st"      | optional          |
