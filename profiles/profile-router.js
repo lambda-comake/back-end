@@ -1,13 +1,13 @@
 const express = require("express");
 
-const Users = require("../user/user-model.js");
+const Profile = require("./profile-model");
 
 const { validateProfile } = require("./profile-middleware.js");
 
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  Users.getProfiles()
+  Profile.getProfiles()
     .then((profiles) => {
       res.status(200).json(profiles);
     })
@@ -17,7 +17,7 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", validateProfile, (req, res) => {
-  Users.postProfile(req.body)
+  Profile.postProfile(req.body)
     .then((profile) => {
       res.status(201).json(profile);
     })
@@ -26,8 +26,26 @@ router.post("/", validateProfile, (req, res) => {
     });
 });
 
+router.put("/:id", (req, res) => {
+  Profile.getProfileById(req.params.id)
+    .then((profile) => {
+      if (profile) {
+        Profile.editProfile(req.body, req.params.id).then((update) => {
+          res.status(200).json(update);
+        });
+      } else {
+        res
+          .status(404)
+          .json({ message: "Couldn't find any profiles with that ID" });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({ error: "issue editing that user", err });
+    });
+});
+
 router.delete("/:id", (req, res) => {
-  Users.removeProfile(req.params.id)
+  Profile.removeProfile(req.params.id)
     .then((user) => {
       if (user.length != 0) {
         res.status(200).json({ deleted: user });

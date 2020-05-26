@@ -43,21 +43,25 @@ router.get("/:id", (req, res) => {
 
 // EDIT a specific issue
 router.put("/:id", validatePost, (req, res) => {
-  Issues.getIssuesById(req.params.id).then((issues) => {
-    if (issues) {
-      Issues.editIssue(req.body, req.params.id)
-        .then((update) => {
-          res.status(200).json(update);
-        })
-        .catch((err) => {
-          res.status(500).json({ error: "error updating that issue", err });
-        });
-    } else {
-      res
-        .status(404)
-        .json({ message: "Couldn't find any issues with that ID" });
-    }
-  });
+  Issues.getIssuesById(req.params.id)
+    .then((issues) => {
+      if (issues) {
+        Issues.editIssue(req.body, req.params.id)
+          .then((update) => {
+            res.status(200).json(update);
+          })
+          .catch((err) => {
+            res.status(500).json({ error: "error updating that issue", err });
+          });
+      } else {
+        res
+          .status(404)
+          .json({ message: "Couldn't find any issues with that ID" });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({ error: "issue editing that issue", err });
+    });
 });
 
 // DELETE a specific issue
