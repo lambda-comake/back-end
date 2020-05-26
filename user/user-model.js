@@ -10,6 +10,7 @@ module.exports = {
   getProfiles,
   removeProfile,
   findProfileBy,
+  removeUser,
 };
 
 function find() {
@@ -28,6 +29,17 @@ async function add(user) {
 
 function findById(id) {
   return db("users").select("id", "username").where({ id: id }).first();
+}
+
+function removeUser(id) {
+  return findById(id).then((del) => {
+    return db("users")
+      .where({ id })
+      .del()
+      .then(() => {
+        return del;
+      });
+  });
 }
 
 function findUserProfile(id) {

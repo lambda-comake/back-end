@@ -25,4 +25,20 @@ router.get("/:id", (req, res) => {
   });
 });
 
+router.delete("/:id", (req, res) => {
+  Users.removeUser(req.params.id)
+    .then((user) => {
+      if (user) {
+        res.status(200).json({ deleted: user });
+      } else {
+        res
+          .status(404)
+          .json({ message: "Couldn't find any users with that ID" });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({ error: "error delete that user", err });
+    });
+});
+
 module.exports = router;
