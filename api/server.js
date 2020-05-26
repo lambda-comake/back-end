@@ -21,7 +21,7 @@ server.get("/", (req, res) => {
 
 server.use("/api/issues", authenticate, issueRouter);
 server.use("/auth", authRouter);
-server.use("/api/users", userRouter);
-server.use("/api/profiles", profileRouter);
+server.use("/api/users", authenticate, userRouter);
+server.use("/api/profiles", authenticate, profileRouter);
 
 module.exports = server;
