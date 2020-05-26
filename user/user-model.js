@@ -6,10 +6,7 @@ module.exports = {
   add,
   findById,
   findUserProfile,
-  postProfile,
-  getProfiles,
-  removeProfile,
-  findProfileBy,
+
   removeUser,
 };
 
@@ -54,36 +51,4 @@ function findUserProfile(id) {
     )
     .join("profiles", "users.id", "=", "profiles.user_id")
     .where("user_id", id);
-}
-
-function getProfiles() {
-  return db("profiles");
-}
-
-function getProfileById(id) {
-  return db("profiles").where({ id });
-}
-
-function removeProfile(id) {
-  return findUserProfile(id).then((del) => {
-    return db("profiles")
-      .where({ id })
-      .del()
-      .then(() => {
-        return del;
-      });
-  });
-}
-
-function postProfile(profile) {
-  return db("profiles")
-    .insert(profile, "id")
-    .then((ids) => {
-      console.log(ids);
-      return getProfileById(ids[0]);
-    });
-}
-
-function findProfileBy(filter) {
-  return db("profiles").where(filter);
 }
