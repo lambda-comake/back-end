@@ -29,6 +29,7 @@
 | POST   | /auth/login    | takes a username and password          | VALID 200 OK |
 | GET    | /api/users     | full list of all users                 | VALID 201 OK |
 | GET    | /api/users/:id | specific user with profile information | VALID 200 OK |
+| DELETE | /api/users/:id | delete a specific user                 | VALID 201 OK |
 
 ---
 
