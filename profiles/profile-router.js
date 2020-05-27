@@ -19,7 +19,7 @@ router.get("/", (req, res) => {
 router.post("/", validateProfile, (req, res) => {
   Profile.postProfile(req.body)
     .then((profile) => {
-      res.status(201).json(profile);
+      res.status(201).json({ profile: profile });
     })
     .catch((err) => {
       res.status(500).json({ error: "error posting that profile", err });
