@@ -2,7 +2,7 @@ module.exports = {
   validateProfile,
 };
 
-const Users = require("../user/user-model.js");
+const Profiles = require("./profile-model.js");
 
 function validateProfile(req, res, next) {
   const email = req.body.email;
@@ -10,7 +10,7 @@ function validateProfile(req, res, next) {
   const lastName = req.body.lastName;
   const age = req.body.age;
 
-  Users.findProfileBy({ email })
+  Profiles.findProfileBy({ email })
     .then((user) => {
       if (user.length > 0) {
         res.status(400).json({ message: "That email is already taken" });
