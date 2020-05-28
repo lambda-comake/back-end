@@ -16,7 +16,6 @@ router.get("/", (req, res) => {
 
 router.get("/:id", (req, res) => {
   Users.findUserProfile(req.params.id).then((user) => {
-    console.log(user);
     if (user.length != 0) {
       res.status(200).json(user);
     } else {
