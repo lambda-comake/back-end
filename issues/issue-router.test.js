@@ -102,6 +102,50 @@ describe("gets the issues", () => {
       .put("/api/issues/1")
       .set("Authorization", token)
       .send({ title: "CHANGE", description: "CHANGE", user_id: 1 })
+      .expect(200);
+  });
+
+  it("PUTS TO /api/issues testing for failure", async () => {
+    await request(server)
+      .post("/auth/register")
+      .send({ username: "billyBob123", password: "pass" });
+    let user = await request(server)
+      .post("/auth/login")
+      .send({ username: "billyBob123", password: "pass" });
+
+    let token = user.body.token;
+    return request(server)
+      .put("/api/issues/1")
+      .set("Authorization", token)
+      .send({ title: "", description: "", user_id: 1 })
       .expect(400);
+  });
+
+  it("DELETES a issue that exists /api/issues/:id", async () => {
+    await request(server)
+      .post("/auth/register")
+      .send({ username: "billyBob123", password: "pass" });
+    let user = await request(server)
+      .post("/auth/login")
+      .send({ username: "billyBob123", password: "pass" });
+    let token = user.body.token;
+    return request(server)
+      .delete("/api/issues/1")
+      .set("Authorization", token)
+      .expect(200);
+  });
+
+  it("DELETES a issue that doesnt exist /api/issues/:id", async () => {
+    await request(server)
+      .post("/auth/register")
+      .send({ username: "billyBob123", password: "pass" });
+    let user = await request(server)
+      .post("/auth/login")
+      .send({ username: "billyBob123", password: "pass" });
+    let token = user.body.token;
+    return request(server)
+      .delete("/api/issues/5")
+      .set("Authorization", token)
+      .expect(404);
   });
 });
