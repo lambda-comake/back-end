@@ -26,7 +26,7 @@ router.post("/", validateProfile, (req, res) => {
     });
 });
 
-router.put("/:id", (req, res) => {
+router.put("/:id", validateProfile, (req, res) => {
   Profile.getProfileById(req.params.id)
     .then((profile) => {
       if (profile) {
