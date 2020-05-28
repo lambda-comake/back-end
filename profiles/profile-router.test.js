@@ -32,10 +32,10 @@ describe("/api/profiles endpoints", () => {
   it("POST /api/profiles succesfully", async () => {
     await request(server)
       .post("/auth/register")
-      .send({ username: "billyBob123", password: "pass" });
+      .send({ username: "billyBob12399", password: "pass" });
     let user = await request(server)
       .post("/auth/login")
-      .send({ username: "billyBob123", password: "pass" });
+      .send({ username: "billyBob12399", password: "pass" });
 
     let token = user.body.token;
     return request(server)
@@ -76,10 +76,10 @@ describe("/api/profiles endpoints", () => {
   it("EDIT /api/profiles expect success", async () => {
     await request(server)
       .post("/auth/register")
-      .send({ username: "billyBob123", password: "pass" });
+      .send({ username: "johnny756", password: "pass" });
     let user = await request(server)
       .post("/auth/login")
-      .send({ username: "billyBob123", password: "pass" });
+      .send({ username: "johnny756", password: "pass" });
 
     let token = user.body.token;
     return request(server)

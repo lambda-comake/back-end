@@ -88,7 +88,7 @@ test("GETs a issue that doesnt exist /api/issues/:id", async () => {
     .expect(404);
 });
 
-test("PUTS TO /api/issues testing for success", async () => {
+test("PUTS TO /api/issues/:id testing for success", async () => {
   await request(server)
     .post("/auth/register")
     .send({ username: "water99", password: "pass" });
