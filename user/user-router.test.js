@@ -42,7 +42,7 @@ test("GET /:id users to be falsy", async () => {
   let token = user.body.token;
 
   return request(server)
-    .get("/api/users/2")
+    .get("/api/users/99")
     .set("Authorization", token)
     .expect(404);
 });
@@ -50,14 +50,14 @@ test("GET /:id users to be falsy", async () => {
 test("DELETES /:id", async () => {
   await request(server)
     .post("/auth/register")
-    .send({ username: "delete user", password: "pass" });
+    .send({ id: 23, username: "delete user", password: "pass" });
   let user = await request(server)
     .post("/auth/login")
     .send({ username: "delete user", password: "pass" });
   let token = user.body.token;
 
   return request(server)
-    .delete("/api/users/5")
+    .delete("/api/users/23")
     .set("Authorization", token)
     .expect(200);
 });
