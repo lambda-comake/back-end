@@ -2,10 +2,6 @@ const request = require("supertest");
 const server = require("../api/server.js");
 const db = require("../data/db-config.js");
 
-beforeEach(async () => {
-  await db.seed.run();
-});
-
 afterEach(async () => {
   await db("issues").truncate();
   await db("profiles").truncate();

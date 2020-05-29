@@ -40,7 +40,7 @@ test("POSTS TO /api/issues", async () => {
   return request(server)
     .post("/api/issues/")
     .set("Authorization", token)
-    .send({ title: "blah", description: "blah", user_id: 12 })
+    .send({ title: "posting issue", description: "test", user_id: 12 })
     .expect(201);
 });
 
