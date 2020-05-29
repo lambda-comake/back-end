@@ -2,7 +2,11 @@ const request = require("supertest");
 const server = require("../api/server.js");
 const db = require("../data/db-config.js");
 
-beforeAll(async () => {
+beforeEach(async () => {
+  await db.seed.run();
+});
+
+afterEach(async () => {
   await db("issues").truncate();
   await db("profiles").truncate();
   await db("users").truncate();
@@ -32,7 +36,7 @@ describe("/api/profiles endpoints", () => {
   it("POST /api/profiles succesfully", async () => {
     await request(server)
       .post("/auth/register")
-      .send({ username: "billyBob12399", password: "pass" });
+      .send({ id: 79, username: "billyBob12399", password: "pass" });
     let user = await request(server)
       .post("/auth/login")
       .send({ username: "billyBob12399", password: "pass" });
@@ -46,7 +50,7 @@ describe("/api/profiles endpoints", () => {
         firstName: "jimmy",
         lastName: "john",
         age: 23,
-        user_id: 1,
+        user_id: 79,
       })
       .expect(201);
   });
@@ -76,23 +80,35 @@ describe("/api/profiles endpoints", () => {
   it("EDIT /api/profiles expect success", async () => {
     await request(server)
       .post("/auth/register")
-      .send({ username: "johnny756", password: "pass" });
+      .send({ id: 58, username: "johnny756", password: "pass" });
     let user = await request(server)
       .post("/auth/login")
       .send({ username: "johnny756", password: "pass" });
 
     let token = user.body.token;
     return request(server)
-      .put("/api/profiles/1")
+      .post("/api/profiles/")
       .set("Authorization", token)
       .send({
-        email: "jimmyjohnsssss@gmali.com",
-        firstName: "CHANGE",
-        lastName: "CHANGE",
+        email: "johnny756@gmail.com",
+        firstName: "jimmy",
+        lastName: "john",
         age: 23,
-        user_id: 1,
+        user_id: 58,
       })
-      .expect(200);
+      .then(() => {
+        return request(server)
+          .put("/api/profiles/1")
+          .set("Authorization", token)
+          .send({
+            email: "jimmyjohnsssss@gmali.com",
+            firstName: "CHANGE",
+            lastName: "CHANGE",
+            age: 23,
+            user_id: 58,
+          })
+          .expect(200);
+      });
   });
 
   it("EDIT /api/profiles expect failure", async () => {
@@ -119,16 +135,28 @@ describe("/api/profiles endpoints", () => {
   it("DELETES /api/profiles/ expect success", async () => {
     await request(server)
       .post("/auth/register")
-      .send({ username: "billyBob123", password: "pass" });
+      .send({ id: 66, username: "billyBob123", password: "pass" });
     let user = await request(server)
       .post("/auth/login")
       .send({ username: "billyBob123", password: "pass" });
 
     let token = user.body.token;
     return request(server)
-      .delete("/api/profiles/1")
+      .post("/api/profiles/")
       .set("Authorization", token)
-      .expect(200);
+      .send({
+        email: "johnny756@gmail.com!",
+        firstName: "jimmy",
+        lastName: "john",
+        age: 23,
+        user_id: 66,
+      })
+      .then(() => {
+        request(server)
+          .delete("/api/profiles/66")
+          .set("Authorization", token)
+          .expect(200);
+      });
   });
 
   it("DELETES /api/profiles/ expect failure", async () => {
@@ -141,7 +169,7 @@ describe("/api/profiles endpoints", () => {
 
     let token = user.body.token;
     return request(server)
-      .delete("/api/profiles/7")
+      .delete("/api/profiles/999")
       .set("Authorization", token)
       .expect(400);
   });
