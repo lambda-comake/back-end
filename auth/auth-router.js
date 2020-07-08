@@ -13,7 +13,15 @@ router.post("/register", (req, res) => {
 
     Users.add(credentials)
       .then((user) => {
-        res.status(201).json({ data: user });
+        const token = generateToken(user);
+        res
+          .status(201)
+          .json({
+            data: user,
+            token,
+            user_id: user.id,
+            username: user.username,
+          });
       })
       .catch((err) => {
         res.status(500).json({ err: err.message });
@@ -35,7 +43,12 @@ router.post("/login", (req, res) => {
 
         res
           .status(200)
-          .json({ message: `Welcome ${username}`, token, user_id: user.id });
+          .json({
+            message: `Welcome ${username}`,
+            token,
+            user_id: user.id,
+            username: user.username,
+          });
       } else {
         res.status(401).json({ message: "Invalid Credentials" });
       }

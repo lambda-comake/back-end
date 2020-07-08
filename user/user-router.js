@@ -15,9 +15,11 @@ router.get("/", (req, res) => {
 });
 
 router.get("/:id", (req, res) => {
-  Users.findUserProfile(req.params.id).then((user) => {
+  Users.findById(req.params.id).then((user) => {
     if (user.length != 0) {
-      res.status(200).json(user);
+      Users.findUserProfile(req.params.id).then((posts) => {
+        res.status(200).json({ userInfo: user, userPosts: posts });
+      });
     } else {
       res.status(404).json({ message: "No profile created for that User yet" });
     }

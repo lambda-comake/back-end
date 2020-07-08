@@ -25,7 +25,10 @@ async function add(user) {
 }
 
 function findById(id) {
-  return db("users").select("id", "username").where({ id: id }).first();
+  return db("users")
+    .select("id", "username", "email", "firstName", "lastName", "age")
+    .where({ id: id })
+    .first();
 }
 
 function removeUser(id) {
@@ -41,14 +44,7 @@ function removeUser(id) {
 
 function findUserProfile(id) {
   return db("users")
-    .select(
-      "users.id",
-      "users.username",
-      "profiles.email",
-      "profiles.firstName",
-      "profiles.lastName",
-      " profiles.age"
-    )
-    .join("profiles", "users.id", "=", "profiles.user_id")
+    .select("issues.id", "issues.title", "issues.description")
+    .join("issues", "users.id", "=", "issues.user_id")
     .where("user_id", id);
 }
