@@ -15,7 +15,7 @@ exports.seed = function (knex) {
       password: "pass",
       email: "water@gmail.com",
       firstName: "water",
-      lasName: "isWet",
+      lastName: "isWet",
       age: 99,
     },
   ]);
