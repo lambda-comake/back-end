@@ -35,30 +35,13 @@
 
 ### Users Data
 
-| Porperty | Type                        | Example    | Requirements      |
-| :------- | :-------------------------- | :--------- | :---------------- |
-| username | string / max 255 characters | "username" | required & unique |
-| password | string / max 255 characters | "password" | required          |
-
----
-
-### Profile Endpoints - authentication required
-
-| Method | Endpoint          | Description                                                       | Response     |
-| :----- | :---------------- | :---------------------------------------------------------------- | :----------- |
-| GET    | /api/profiles     | full list of all profiles                                         | VALID 200 OK |
-| POST   | /api/profiles     | takes a email, first name, last name, age, and address (optional) | VALID 201 OK |
-| PUT    | /api/profiles     | takes a email, first name, last name, age, and address (optional) | VALID 201 OK |
-| DELETE | /api/profiles/:id | Deletes a specific profile                                        | VALID 200 OK |
-
----
-
-### Profile Data
-
 | Porperty   | Type                         | Example           | Requirements      |
 | :--------- | :--------------------------- | :---------------- | :---------------- |
+| username   | string / max 255 characters  | "username"        | required & unique |
+| password   | string / max 255 characters  | "password"        | required          |
 | email      | string / max 255 characters  | "email@email.com" | required & unique |
 | first name | string / max 255 characters  | "Bob"             | required          |
 | last name  | string / max 255 characters  | "Doe"             | required          |
 | age        | integer / max 128 characters | 25                | required          |
-| address    | string / max 255 characters  | "123 abc st"      | optional          |
+
+---
