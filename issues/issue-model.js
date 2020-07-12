@@ -9,7 +9,16 @@ module.exports = {
 };
 
 function getAllIssues() {
-  return db("issues");
+  return db("issues")
+    .select(
+      "issues.id",
+      "issues.title",
+      "issues.description",
+      "issues.upVotes",
+      "issues.user_id",
+      "users.username"
+    )
+    .join("users", "users.id", "=", "issues.user_id");
 }
 
 function getIssuesById(id) {
