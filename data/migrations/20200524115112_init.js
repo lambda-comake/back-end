@@ -13,7 +13,7 @@ exports.up = function (knex) {
     .createTable("issues", (tbl) => {
       tbl.increments();
       tbl.string("title", 255).notNullable();
-      tbl.string("description").notNullable();
+      tbl.string("description", 1000).notNullable();
       tbl.integer("upVotes");
 
       tbl
